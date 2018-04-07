@@ -1,0 +1,6 @@
+---
+- name: INCLUDE | Install Plex Media Server
+  include_tasks: install.yml
+
+- name: INCLUDE | Install csfd-plex
+  include_tasks: csfd.yml

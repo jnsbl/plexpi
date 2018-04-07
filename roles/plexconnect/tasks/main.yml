@@ -1,0 +1,9 @@
+---
+- name: INCLUDE | Install PlexConnect
+  include_tasks: install.yml
+
+- name: INCLUDE | Generate PlexConnect certificate
+  include_tasks: cert.yml
+
+- name: INCLUDE | Start PlexConnect as service
+  include_tasks: service.yml

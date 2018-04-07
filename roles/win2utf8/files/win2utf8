@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+import click
+import os
+
+@click.command()
+@click.option("--dry-run", is_flag=True, help="Don't make any changes")
+@click.argument("in_file", type=click.Path(exists=True))
+@click.argument("out_file", type=click.Path(exists=False))
+def cli(dry_run, in_file, out_file):
+    """
+    Converts CP1250-encoded text to UTF8-encoded text.
+    """
+    cmd = 'iconv -c -f CP1250 -t UTF-8 < "{0}" > "{1}"'.format(in_file, out_file)
+    if dry_run:
+        click.echo(cmd)
+    else:
+        os.system(cmd)
+
+if __name__ == "__main__":
+    cli()
+# vim:filetype=python

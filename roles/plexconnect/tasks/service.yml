@@ -1,0 +1,17 @@
+# based on https://forums.plex.tv/discussion/193215/autostart-plexconnect-on-raspberry-pi
+---
+- name: APT | Install/upgrade screen
+  apt:
+    name: screen
+    state: latest
+    autoremove: yes
+    install_recommends: no
+
+- name: TEMPLATE | PlexConnect service
+  template:
+    src: plexconnect.j2
+    dest: /etc/init.d/plexconnect
+    owner: root
+    group: root
+    mode: 0755
+  notify: daemon-reload

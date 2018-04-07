@@ -1,0 +1,10 @@
+---
+
+# Path to install PlexConnect to
+plexconnect_install_path: /usr/local/lib/PlexConnect
+
+# Path to directory to generate OpenSSL certificate to
+plexconnect_cert_dir: "{{ plexconnect_install_path }}/assets/certificates"
+
+# Full path to the generated OpenSSL certificate
+plexconnect_cert_path: "{{ plexconnect_cert_dir }}/trailers.pem"

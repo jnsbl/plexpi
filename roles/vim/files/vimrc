@@ -1,0 +1,61 @@
+" http://items.sjbach.com/319/configuring-vim-right
+
+set hidden
+set autoread
+set nowrap
+set history=1000
+set backspace=indent,eol,start
+
+set wildmenu
+set wildmode=list:longest
+set title
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1
+set number
+set ruler
+set laststatus=2
+set listchars=tab:>-,trail:·,eol:$
+set visualbell
+
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+set gdefault
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+set noswapfile
+set nobackup
+set nowb
+
+if has('persistent_undo')
+  if !isdirectory(expand('~').'/.vim/backups')
+    silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  endif
+  set undodir=~/.vim/backups
+  set undofile
+endif
+
+let mapleader = ","
+
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+
+nnoremap ' `
+nnoremap ` '
+nmap <silent> <leader>s :set nolist!<CR>
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif

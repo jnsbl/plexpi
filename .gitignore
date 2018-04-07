@@ -1,0 +1,21 @@
+### https://raw.github.com/github/gitignore/2c0cb52a67921cf3dffb8098ba027f376f73f859/Global/Ansible.gitignore
+
+*.retry
+
+
+### https://raw.github.com/github/gitignore/2c0cb52a67921cf3dffb8098ba027f376f73f859/Global/Vim.gitignore
+
+# swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+# session
+Session.vim
+# temporary
+.netrwhist
+*~
+# auto-generated tag files
+tags
+
+

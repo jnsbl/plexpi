@@ -1,0 +1,12 @@
+---
+- name: INCLUDE | Configure APT
+  include_tasks: apt.yml
+
+- name: INCLUDE | Configure hostname
+  include_tasks: hostname.yml
+
+- name: INCLUDE | Configure sudoers
+  include_tasks: sudoers.yml
+
+- name: INCLUDE | Configure static IP address
+  include_tasks: static_ip.yml

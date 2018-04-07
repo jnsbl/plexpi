@@ -1,0 +1,7 @@
+---
+- name: TEMPLATE | Create sudoers file
+  template:
+    src: etc/sudoers.d/ansible.j2
+    dest: /etc/sudoers.d/ansible
+    mode: 0440
+    validate: 'visudo -cf %s'

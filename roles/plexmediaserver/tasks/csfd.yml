@@ -1,0 +1,31 @@
+---
+- name: STAT | Check if CSFD.bundle exists
+  stat:
+    path: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/CSFD.bundle"
+  register: csfd_bundle
+
+- name: FILE | Create /tmp/csfd-plex
+  file:
+    path: /tmp/csfd-plex
+    state: directory
+
+- name: UNARCHIVE | Unarchive csfd-plex
+  unarchive:
+    src: https://github.com/misko/csfd-plex/archive/master.zip
+    dest: /tmp/csfd-plex
+    remote_src: yes
+  when: csfd_bundle.stat.exists == False
+
+- name: STAT | Check if /tmp/csfd-plex/CSFD.bundle exists
+  stat:
+    path: /tmp/csfd-plex
+  register: tmp_csfd_bundle
+
+- name: COMMAND | Move CSFD.bundle in place
+  command: mv /tmp/csfd-plex/csfd-plex-master/CSFD.bundle "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/"
+  when: tmp_csfd_bundle.stat.exists == True
+
+- name: FILE | Remove /tmp/csfd-plex
+  file:
+    path: /tmp/csfd-plex
+    state: absent

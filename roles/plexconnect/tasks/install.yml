@@ -1,0 +1,5 @@
+---
+- name: GIT | Install/update PlexConnect
+  git:
+    repo: https://github.com/iBaa/PlexConnect
+    dest: "{{ plexconnect_install_path }}"

@@ -1,0 +1,9 @@
+---
+- name: LINEINFILE | Set static IP address
+  lineinfile:
+    path: /boot/cmdline.txt
+    regexp: '^ip='
+    line: 'ip={{ ansible_default_ipv4.address }}'
+  notify:
+    - reboot
+    - wait for reboot

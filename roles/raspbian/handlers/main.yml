@@ -1,0 +1,14 @@
+---
+- name: restart rsyslog
+  service:
+    name: rsyslog
+    state: restarted
+
+- name: reboot
+  command: /sbin/reboot
+
+- name: wait for reboot
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 22
+    timeout: 180

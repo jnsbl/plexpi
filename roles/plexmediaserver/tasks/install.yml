@@ -1,0 +1,35 @@
+---
+- name: APT_KEY | Add dev2day PMS key
+  apt_key:
+    url: https://dev2day.de/pms/dev2day-pms.gpg.key
+    state: present
+
+- name: APT_REPOSITORY | Add dev2day PMS repo
+  apt_repository:
+    repo: deb https://dev2day.de/pms/ jessie main
+    state: present
+  register: dev2day_pms_repo_added
+
+- name: APT | Update
+  apt:
+    update_cache: yes
+  when: dev2day_pms_repo_added.changed
+
+- name: APT | Install plexmediaserver
+  apt:
+    name: plexmediaserver
+    default_release: jessie
+    state: latest
+  register: plexmediaserver_installed
+
+- name: LINEINFILE | Use 'pi' user instead of 'plex'
+  lineinfile:
+    path: /etc/default/plexmediaserver.prev
+    regexp: '^PLEX_MEDIA_SERVER_USER='
+    line: 'PLEX_MEDIA_SERVER_USER=pi'
+
+- name: SERVICE | Restart plexmediaserver
+  service:
+    name: plexmediaserver
+    state: restarted
+  when: plexmediaserver_installed.changed

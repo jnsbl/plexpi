@@ -1,0 +1,21 @@
+---
+- name: APT | Update
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  tags:
+    - upgrade_packages
+
+- name: APT | Upgrade all packages
+  apt:
+    upgrade: dist
+  tags:
+    - upgrade_packages
+
+- name: COPY | Disable apt recommendations
+  copy:
+    src: etc/apt/apt.conf.d/90noextrapackages
+    dest: /etc/apt/apt.conf.d/90noextrapackages
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r

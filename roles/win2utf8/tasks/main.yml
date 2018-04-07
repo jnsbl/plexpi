@@ -1,0 +1,8 @@
+---
+- name: COPY | Update win2utf8
+  copy:
+    src: win2utf8
+    dest: /home/pi/bin/win2utf8
+    owner: pi
+    group: pi
+    mode: 0755

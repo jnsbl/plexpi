@@ -1,0 +1,4 @@
+---
+
+# The hostname to use for the Raspberry Pi
+dbs_hostname: "{{ inventory_hostname }}"
