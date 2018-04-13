@@ -1,17 +1,29 @@
-# based on https://forums.plex.tv/discussion/193215/autostart-plexconnect-on-raspberry-pi
 ---
-- name: APT | Install/upgrade screen
-  apt:
-    name: screen
-    state: latest
-    autoremove: yes
-    install_recommends: no
-
 - name: TEMPLATE | PlexConnect service
   template:
-    src: plexconnect.j2
-    dest: /etc/init.d/plexconnect
+    src: plexconnect.service.j2
+    dest: /lib/systemd/system/plexconnect.service
     owner: root
     group: root
-    mode: 0755
+    mode: 0644
   notify: daemon-reload
+
+- name: FILE | Symlink for starting PlexConnect service at boot time
+  file:
+    src: /lib/systemd/system/plexconnect.service
+    dest: /etc/systemd/system/multi-user.target.wants/plexconnect.service
+    owner: root
+    group: root
+    state: link
+
+- name: SYSTEMD | Enable PlexConnect service
+  systemd:
+    name: plexconnect
+    enabled: yes
+    masked: no
+
+- name: SYSTEMD | Ensure PlexConnect service is started
+  systemd:
+    state: started
+    daemon_reload: yes
+    name: plexconnect
