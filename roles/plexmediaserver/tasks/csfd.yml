@@ -18,7 +18,7 @@
 
 - name: STAT | Check if /tmp/csfd-plex/CSFD.bundle exists
   stat:
-    path: /tmp/csfd-plex
+    path: /tmp/csfd-plex/csfd-plex-master/CSFD.bundle
   register: tmp_csfd_bundle
 
 - name: COMMAND | Move CSFD.bundle in place
