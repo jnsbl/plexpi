@@ -1,4 +1,7 @@
 ---
+- name: INCLUDE | Configure boot options
+  include_tasks: boot.yml
+
 - name: INCLUDE | Configure APT
   include_tasks: apt.yml
 

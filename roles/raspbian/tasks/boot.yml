@@ -1,0 +1,5 @@
+---
+- name: COMMAND | Disable GUI at boot time
+  command: systemctl set-default multi-user.target
+  tags:
+    - boot_options
