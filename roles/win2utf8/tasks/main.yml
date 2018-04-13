@@ -1,4 +1,9 @@
 ---
+- name: FILE | Create /home/pi/bin
+  file:
+    path: /home/pi/bin
+    state: directory
+
 - name: COPY | Update win2utf8
   copy:
     src: win2utf8
