@@ -1,24 +1,36 @@
 ---
-- name: APT_KEY | Add dev2day PMS key
+- name: APT_KEY | Remove dev2day PMS key (legacy)
   apt_key:
+    id: 6E44829202F4E6DF0C92525397BC9498DC9666A8
     url: https://dev2day.de/pms/dev2day-pms.gpg.key
-    state: present
+    state: absent
 
-- name: APT_REPOSITORY | Add dev2day PMS repo
+- name: APT_REPOSITORY | Remove dev2day PMS repo (legacy)
   apt_repository:
     repo: deb https://dev2day.de/pms/ jessie main
+    state: absent
+  register: pms_repo_added
+
+- name: APT_KEY | Add official PMS key
+  apt_key:
+    url: https://downloads.plex.tv/plex-keys/PlexSign.key
     state: present
-  register: dev2day_pms_repo_added
+
+- name: APT_REPOSITORY | Add official PMS repo
+  apt_repository:
+    repo: deb https://downloads.plex.tv/repo/deb public main
+    state: present
+  register: pms_repo_added
 
 - name: APT | Update
   apt:
     update_cache: yes
-  when: dev2day_pms_repo_added.changed
+  when: pms_repo_added.changed
 
 - name: APT | Install plexmediaserver
   apt:
     name: plexmediaserver
-    default_release: jessie
+    default_release: stretch
     state: latest
   register: plexmediaserver_installed
 
